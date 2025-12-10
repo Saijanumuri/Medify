@@ -14,7 +14,7 @@ export default function Hsptl() {
 
   const [centers, setCenters] = useState([]);
   const [expandedCenter, setExpandedCenter] = useState(null);
-  const [activeDayIndex] = useState(0); // only today used
+  const [activeDayIndex] = useState(0); // only Today is used for tests
 
   useEffect(() => {
     if (!state || !city) {
@@ -22,6 +22,8 @@ export default function Hsptl() {
       return;
     }
 
+    // MUST match Cypress intercept:
+    // /data?state=Alabama&city=DOTHAN
     axios
       .get(
         `https://meddata-backend.onrender.com/data?state=${state}&city=${city}`
@@ -30,6 +32,7 @@ export default function Hsptl() {
       .catch(() => setCenters([]));
   }, [state, city]);
 
+  // Build day slots (Today, Tomorrow, etc.)
   const dayTabs = Array.from({ length: 7 }).map((_, index) => {
     const d = new Date();
     d.setDate(d.getDate() + index);
@@ -79,12 +82,12 @@ export default function Hsptl() {
 
   return (
     <div style={{ margin: "40px" }}>
-      {/* Search Result Heading */}
+      {/* Search Result Heading – must match Cypress text */}
       <h1>
         {centers.length} medical centers available in {city.toLowerCase()}
       </h1>
 
-      {/* Verified Text Row */}
+      {/* Verified row */}
       <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
         <img src={tick} alt="tick" />
         <p>
@@ -92,7 +95,7 @@ export default function Hsptl() {
         </p>
       </div>
 
-      {/* Hospital Cards */}
+      {/* Hospital cards */}
       {centers.map((center, index) => (
         <div key={index} className="card">
           <div className="card-header">
@@ -111,13 +114,14 @@ export default function Hsptl() {
 
             <button
               className="book-btn"
+              // Cypress expects clicking this to OPEN slot section
               onClick={() => setExpandedCenter(index)}
             >
               Book FREE Center Visit
             </button>
           </div>
 
-          {/* Appointment Slots */}
+          {/* Slot section (visible after clicking button) */}
           {expandedCenter === index && (
             <div className="slot-container">
               <p className="slot-label">Today</p>

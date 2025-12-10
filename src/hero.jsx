@@ -31,14 +31,15 @@ function Hero() {
 
   const [selectedState, setSelectedState] = useState("");
   const [cities, setCities] = useState([]);
-
   const [selectedCity, setSelectedCity] = useState("");
 
   const images = [hoff, toff, hoff, toff, hoff, hoff, toff];
   const [startIndex, setStartIndex] = useState(0);
   const visibleImages = images.slice(startIndex, startIndex + 3);
 
-  // Fetch cities when a state is selected
+  const getCityName = (c) => c.city || c.name || c;
+
+  // Fetch cities whenever state changes
   useEffect(() => {
     if (!selectedState) return;
 
@@ -48,13 +49,13 @@ function Hero() {
       .catch(() => setCities([]));
   }, [selectedState]);
 
-  const getCityName = (c) => c.city || c.name || c;
-
   const handleSearch = () => {
     if (!selectedState || !selectedCity) {
       alert("Please select both State and City.");
       return;
     }
+
+    // Cypress intercept expects this exact query format
     navigate(`/hospitals?state=${selectedState}&city=${selectedCity}`);
   };
 

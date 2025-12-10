@@ -61,7 +61,7 @@ function Hero() {
   }, [selectedState]);
 
   const handleSearch = () => {
-   
+
     if (!selectedState || !selectedCity) {
       alert("Please select both State and City from the suggestions.");
       return;
@@ -71,7 +71,7 @@ function Hero() {
 
   return (
     <div className="hero-main">
-      
+
       <div className="hero-content">
         <div>
           <p className="hero-title">
@@ -90,7 +90,7 @@ function Hero() {
         <img src={Doctor} alt="Doctor" className="doctor-img" />
       </div>
 
-    
+
       <div className="search-card">
         <form
           className="search-top-row"
@@ -99,9 +99,10 @@ function Hero() {
             handleSearch();
           }}
         >
-       
+
           <div className="input-container" id="state">
             <span className="input-icon">📍</span>
+
             <input
               type="text"
               className="search-input"
@@ -110,40 +111,39 @@ function Hero() {
               onChange={(e) => {
                 setStateInput(e.target.value);
                 setSelectedState("");
-                setCities([]);
                 setCityInput("");
                 setSelectedCity("");
+                setCities([]);
               }}
             />
 
             {stateInput && !loading && (
               <ul className="suggestion-list">
                 {states
-                  ?.filter((s) =>
-                    s.toLowerCase().includes(stateInput.toLowerCase())
+                  .filter((st) =>
+                    st.toLowerCase().includes(stateInput.toLowerCase())
                   )
-                  .map((st, i) => (
+                  .map((st, index) => (
                     <li
-                      key={i}
+                      key={index}
                       className="suggestion-item"
-                      onClick={() => handleStateSelect(st)}
+                      onClick={() => {
+                        setSelectedState(st);
+                        setStateInput(st);
+                      }}
                     >
                       {st}
                     </li>
                   ))}
               </ul>
             )}
-
-            {loading && (
-              <div className="suggestion-list">
-                <div className="suggestion-item">Loading states...</div>
-              </div>
-            )}
           </div>
 
-          
+
+
           <div className="input-container" id="city">
             <span className="input-icon">🏙️</span>
+
             <input
               type="text"
               className="search-input"
@@ -159,17 +159,17 @@ function Hero() {
             {selectedState && cities.length > 0 && (
               <ul className="suggestion-list">
                 {cities
-                  .map(getCityName)
+                  .map((c) => c.city || c.name || c)
                   .filter((c) =>
-                    c?.toLowerCase().includes(cityInput.toLowerCase())
+                    c.toLowerCase().includes(cityInput.toLowerCase())
                   )
-                  .map((city, i) => (
+                  .map((city, index) => (
                     <li
-                      key={i}
+                      key={index}
                       className="suggestion-item"
                       onClick={() => {
-                        setCityInput(city);
                         setSelectedCity(city);
+                        setCityInput(city);
                       }}
                     >
                       {city}
@@ -179,7 +179,8 @@ function Hero() {
             )}
           </div>
 
-        
+
+
           <button
             className="search-btn"
             type="submit"
@@ -200,7 +201,7 @@ function Hero() {
         </div>
       </div>
 
-     
+
       <div className="offers-section">
         <div className="offer-images">
           {visibleImages.map((img, i) => (

@@ -19,16 +19,25 @@ export default function MyBookings() {
               </div>
 
               <div>
-                <h3 className="myb-title">{item.hospital}</h3>
+                <h3 className="myb-title">
+                  {item.hospital || item["Hospital Name"]}
+                </h3>
                 <p className="myb-grey">
-                  {item.address}, {item.city}, {item.state}
+                  {item.address ? `${item.address}, ` : ""}
+                  {(item.city || item.City) && (item.state || item.State)
+                    ? `${item.city || item.City}, ${item.state || item.State}`
+                    : ""}
                 </p>
               </div>
             </div>
 
             <div className="myb-right">
-              <span className="myb-time-pill">{item.time}</span>
-              <span className="myb-date-pill">{item.date}</span>
+              <span className="myb-time-pill">
+                {item.time || item.bookingTime}
+              </span>
+              <span className="myb-date-pill">
+                {item.date || item.bookingDate}
+              </span>
             </div>
           </div>
         ))

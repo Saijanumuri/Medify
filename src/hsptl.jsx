@@ -14,9 +14,8 @@ export default function Hsptl() {
 
   const [centers, setCenters] = useState([]);
   const [expandedCenter, setExpandedCenter] = useState(null);
-  const [activeDayIndex, setActiveDayIndex] = useState(0);
+  const [activeDayIndex] = useState(0); // only today used
 
- 
   useEffect(() => {
     if (!state || !city) {
       setCenters([]);
@@ -30,7 +29,6 @@ export default function Hsptl() {
       .then((res) => setCenters(res.data))
       .catch(() => setCenters([]));
   }, [state, city]);
-
 
   const dayTabs = Array.from({ length: 7 }).map((_, index) => {
     const d = new Date();
@@ -55,7 +53,6 @@ export default function Hsptl() {
 
   const currentDay = dayTabs[activeDayIndex];
 
-  
   const handleBooking = (center, time) => {
     const booking = {
       hospital: center["Hospital Name"],
@@ -72,7 +69,6 @@ export default function Hsptl() {
     navigate("/my-bookings");
   };
 
-
   if (!state || !city) {
     return (
       <div style={{ margin: "40px" }}>
@@ -83,12 +79,12 @@ export default function Hsptl() {
 
   return (
     <div style={{ margin: "40px" }}>
-      
+      {/* Search Result Heading */}
       <h1>
         {centers.length} medical centers available in {city.toLowerCase()}
       </h1>
 
-     
+      {/* Verified Text Row */}
       <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
         <img src={tick} alt="tick" />
         <p>
@@ -96,10 +92,9 @@ export default function Hsptl() {
         </p>
       </div>
 
-      
+      {/* Hospital Cards */}
       {centers.map((center, index) => (
         <div key={index} className="card">
-          
           <div className="card-header">
             <div style={{ display: "flex", gap: "15px" }}>
               <div className="hsptl-wrapper">
@@ -107,9 +102,7 @@ export default function Hsptl() {
               </div>
 
               <div>
-                <h3 className="card-title">
-                  {center["Hospital Name"]}
-                </h3>
+                <h3 className="card-title">{center["Hospital Name"]}</h3>
                 <p className="grey-text">
                   {center.City}, {center.State}
                 </p>
@@ -118,17 +111,13 @@ export default function Hsptl() {
 
             <button
               className="book-btn"
-              onClick={() =>
-                setExpandedCenter(
-                  expandedCenter === index ? null : index
-                )
-              }
+              onClick={() => setExpandedCenter(index)}
             >
               Book FREE Center Visit
             </button>
           </div>
 
-          
+          {/* Appointment Slots */}
           {expandedCenter === index && (
             <div className="slot-container">
               <p className="slot-label">Today</p>

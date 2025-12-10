@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useContext } from "react";
 import { StateCityContext } from "./statecity";
 import { useNavigate } from "react-router-dom";
@@ -28,29 +27,18 @@ import doctor2 from "./assests/doctor2.png";
 
 function Hero() {
   const navigate = useNavigate();
-  const { states, loading } = useContext(StateCityContext);
+  const { states } = useContext(StateCityContext);
 
-  const [stateInput, setStateInput] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [cities, setCities] = useState([]);
 
-  const [cityInput, setCityInput] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
 
   const images = [hoff, toff, hoff, toff, hoff, hoff, toff];
   const [startIndex, setStartIndex] = useState(0);
   const visibleImages = images.slice(startIndex, startIndex + 3);
 
-  const handleStateSelect = (st) => {
-    setSelectedState(st);
-    setStateInput(st);
-    setCities([]);
-    setCityInput("");
-    setSelectedCity("");
-  };
-
-  const getCityName = (c) => c.city || c.name || c;
-
+  // Fetch cities when a state is selected
   useEffect(() => {
     if (!selectedState) return;
 
@@ -60,10 +48,11 @@ function Hero() {
       .catch(() => setCities([]));
   }, [selectedState]);
 
-  const handleSearch = () => {
+  const getCityName = (c) => c.city || c.name || c;
 
+  const handleSearch = () => {
     if (!selectedState || !selectedCity) {
-      alert("Please select both State and City from the suggestions.");
+      alert("Please select both State and City.");
       return;
     }
     navigate(`/hospitals?state=${selectedState}&city=${selectedCity}`);
@@ -71,7 +60,7 @@ function Hero() {
 
   return (
     <div className="hero-main">
-
+      {/* HERO BANNER */}
       <div className="hero-content">
         <div>
           <p className="hero-title">
@@ -90,7 +79,7 @@ function Hero() {
         <img src={Doctor} alt="Doctor" className="doctor-img" />
       </div>
 
-
+      {/* SEARCH CARD */}
       <div className="search-card">
         <form
           className="search-top-row"
@@ -99,7 +88,7 @@ function Hero() {
             handleSearch();
           }}
         >
-
+          {/* STATE DROPDOWN */}
           <div className="input-container" id="state">
             <p className="dropdown-label">
               {selectedState || "Select State"}
@@ -122,9 +111,7 @@ function Hero() {
             </ul>
           </div>
 
-
-
-
+          {/* CITY DROPDOWN */}
           <div className="input-container" id="city">
             <p className="dropdown-label">
               {selectedCity || "Select City"}
@@ -133,7 +120,7 @@ function Hero() {
             {selectedState && (
               <ul className="suggestion-list">
                 {cities
-                  .map((c) => c.city || c.name || c)
+                  .map(getCityName)
                   .map((city, index) => (
                     <li
                       key={index}
@@ -147,9 +134,7 @@ function Hero() {
             )}
           </div>
 
-
-
-
+          {/* SEARCH BUTTON */}
           <button
             className="search-btn"
             type="submit"
@@ -170,7 +155,7 @@ function Hero() {
         </div>
       </div>
 
-
+      {/* OFFERS */}
       <div className="offers-section">
         <div className="offer-images">
           {visibleImages.map((img, i) => (
@@ -189,6 +174,7 @@ function Hero() {
         </div>
       </div>
 
+      {/* SPECIALISATION */}
       <div className="specialisation-section">
         <p className="section-title">Find by Specialisation</p>
         <div className="special-grid">
@@ -201,6 +187,7 @@ function Hero() {
         <button className="view-all-btn">View All</button>
       </div>
 
+      {/* SPECIALISTS */}
       <div className="specialists-section">
         <p className="section-title">Our Medical Specialist</p>
         <div className="docs-row">
@@ -212,10 +199,12 @@ function Hero() {
         </div>
       </div>
 
+      {/* CARING BANNER */}
       <div className="caring-banner">
         <img src={caring} className="caring-img" alt="Caring doctors" />
       </div>
 
+      {/* BLOG SECTION */}
       <div className="blog-section">
         <p className="blog-sub">Blog & News</p>
         <p className="blog-title">Read Our Latest News</p>

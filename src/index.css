@@ -1346,3 +1346,15 @@ body {
     justify-content: center;
   }
 }
+.dropdown-label {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 14px;
+  background: #f7f7f7;
+  border-radius: 8px;
+  border: 1px solid #dedede;
+  cursor: pointer;
+  font-size: 15px;
+  color: #4b4b4b;
+}

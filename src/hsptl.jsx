@@ -1,4 +1,4 @@
-// src/hsptl.jsx
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ export default function Hsptl() {
   const [expandedCenter, setExpandedCenter] = useState(null);
   const [activeDayIndex, setActiveDayIndex] = useState(0);
 
-  // fetch only when BOTH state and city are present
+  
   useEffect(() => {
     if (!state || !city) {
       setCenters([]);
@@ -32,7 +32,7 @@ export default function Hsptl() {
       .catch(() => setCenters([]));
   }, [state, city]);
 
-  // ---------- calendar within a week ----------
+ 
   const formatDate = (date) =>
     date.toLocaleDateString("en-US", {
       weekday: "short",
@@ -75,7 +75,7 @@ export default function Hsptl() {
     );
   };
 
-  // when user clicks a slot → create booking + save in localStorage
+  
   const handleBooking = (center, time) => {
     const booking = {
       hospital: center["Hospital Name"],
@@ -104,7 +104,7 @@ export default function Hsptl() {
 
   return (
     <div style={{ marginLeft: "40px", marginTop: "20px", marginBottom: "40px" }}>
-      {/* required heading format */}
+     
       <h1>
         {centers.length} medical centers available in {city.toLowerCase()}
       </h1>
@@ -127,7 +127,7 @@ export default function Hsptl() {
       >
         {centers.map((center, index) => (
           <div key={index} className="card">
-            {/* top of card */}
+            
             <div className="card-header">
               <div style={{ display: "flex", gap: "15px" }}>
                 <div className="hsptl-wrapper">
@@ -135,7 +135,7 @@ export default function Hsptl() {
                 </div>
 
                 <div>
-                  {/* Hospital Name in <h3> */}
+                  
                   <h3 className="card-title">{center["Hospital Name"]}</h3>
                   <p className="grey-text">
                     {center.City}, {center.State}
@@ -154,7 +154,7 @@ export default function Hsptl() {
 
               <div style={{ textAlign: "right" }}>
                 <p className="available-text">Available Today</p>
-                {/* exact button text */}
+               
                 <button
                   className="book-btn"
                   onClick={() =>
@@ -166,7 +166,7 @@ export default function Hsptl() {
               </div>
             </div>
 
-            {/* expanded appointment section */}
+            
             {expandedCenter === index && (
               <div className="slot-container">
                 <div className="tabs-row">
@@ -198,7 +198,7 @@ export default function Hsptl() {
 
                 <div className="active-line" />
 
-                {/* Morning / Afternoon / Evening headings are <p> */}
+                
                 <div className="slot-group">
                   <p className="slot-label">Morning</p>
                   {currentDay.morning.map((t) => (

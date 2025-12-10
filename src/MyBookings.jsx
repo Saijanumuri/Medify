@@ -5,7 +5,7 @@ export default function MyBookings() {
 
   return (
     <div className="my-bookings-page">
-      {/* REQUIRED HEADING */}
+     
       <h1>My Bookings</h1>
 
       {bookings.length === 0 ? (
@@ -19,7 +19,7 @@ export default function MyBookings() {
               </div>
 
               <div>
-                {/* REQUIRED: use H3 tag for hospital name */}
+               
                 <h3 className="myb-title">{item.name}</h3>
                 <p className="myb-grey">{item.address}</p>
               </div>

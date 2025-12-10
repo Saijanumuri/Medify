@@ -1,4 +1,4 @@
-/* ===== Global ===== */
+
 
 * {
   box-sizing: border-box;
@@ -11,7 +11,7 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-/* ===== Top Banner ===== */
+
 
 .top-banner {
   background-color: #2aa7ff;
@@ -25,7 +25,7 @@ body {
   text-align: center;
 }
 
-/* ===== Navbar ===== */
+
 
 .navbar {
   padding: 12px 135px;
@@ -67,13 +67,13 @@ body {
   margin-left: 16px;
 }
 
-/* ===== Hero Section ===== */
+
 
 .hero-main {
   font-family: "Poppins", sans-serif;
 }
 
-/* Top hero content */
+
 
 .hero-content {
   display: flex;
@@ -123,7 +123,6 @@ body {
   object-fit: contain;
 }
 
-/* Search card */
 
 .search-card {
   width: 1170px;
@@ -175,7 +174,6 @@ body {
   cursor: not-allowed;
 }
 
-/* Suggestions */
 
 .suggestion-list {
   position: absolute;
@@ -201,7 +199,6 @@ body {
   background: #e5f3ff;
 }
 
-/* Search button */
 
 .search-btn {
   background: #2aa7ff;
@@ -226,7 +223,7 @@ body {
   padding-left: 40px;
 }
 
-/* Categories */
+
 
 .categories {
   display: flex;
@@ -259,7 +256,7 @@ body {
   max-height: 80%;
 }
 
-/* ===== Offers section (slider) ===== */
+
 
 .offers-section {
   height: 350px;
@@ -304,7 +301,7 @@ body {
   height: 15px;
 }
 
-/* ===== Specialisation Section ===== */
+
 
 .specialisation-section {
   display: flex;
@@ -346,7 +343,7 @@ body {
   cursor: pointer;
 }
 
-/* ===== Our Medical Specialists ===== */
+
 
 .specialists-section {
   background-color: white;
@@ -375,7 +372,7 @@ body {
   object-fit: cover;
 }
 
-/* ===== Caring Banner ===== */
+
 
 .caring-banner {
   height: 598px;
@@ -391,7 +388,7 @@ body {
   object-fit: cover;
 }
 
-/* ===== Blog Section ===== */
+
 
 .blog-section {
   display: flex;
@@ -460,7 +457,7 @@ body {
   border-radius: 50%;
 }
 
-/* ===== FAQ Section (Footer FAQ) ===== */
+
 
 .faq-section {
   display: flex;
@@ -614,7 +611,7 @@ body {
   background: #005ed1;
 }
 
-/* Expanded Section */
+
 .slot-container {
   margin-top: 18px;
   border-top: 1px solid #e6e6e6;
@@ -693,10 +690,7 @@ body {
 .slot-btn:hover {
   background: #eaf2ff;
 }
-/* --- existing global + hero + search + cards styles from your file stay as they are --- */
-/* I’ll only show the important pieces + new MyBookings styles */
 
-/* Search button requirement */
 .search-btn {
   background: #2aa7ff;
   color: #ffffff;
@@ -709,7 +703,7 @@ body {
   transition: 0.2s ease-in-out;
 }
 
-/* Hospital cards (search results) */
+
 .card {
   background: white;
   padding: 15px;
@@ -781,7 +775,7 @@ body {
   background: #005ed1;
 }
 
-/* Expanded Section (slots) */
+
 .slot-container {
   margin-top: 18px;
   border-top: 1px solid #e6e6e6;
@@ -861,7 +855,7 @@ body {
   background: #eaf2ff;
 }
 
-/* --- My Bookings page styles --- */
+
 
 .my-bookings-page {
   padding: 30px 135px 60px;
@@ -902,7 +896,7 @@ body {
   color: #4a5568;
 }
 
-/* booking card */
+
 .myb-card {
   background: #ffffff;
   padding: 18px 20px;

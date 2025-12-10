@@ -24,7 +24,7 @@ function Navbar() {
           <a href="#">Software for Provider</a>
           <a href="#">Facilities</a>
 
-          {/* Navigate to required test endpoint */}
+          
           <button className="booking-btn" onClick={() => navigate("/my-bookings")}>
             My Bookings
           </button>

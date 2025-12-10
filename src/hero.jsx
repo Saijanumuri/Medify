@@ -1,4 +1,4 @@
-// src/hero.jsx
+
 import React, { useState, useEffect, useContext } from "react";
 import { StateCityContext } from "./statecity";
 import { useNavigate } from "react-router-dom";
@@ -61,7 +61,7 @@ function Hero() {
   }, [selectedState]);
 
   const handleSearch = () => {
-    // strict: must pick from dropdown
+   
     if (!selectedState || !selectedCity) {
       alert("Please select both State and City from the suggestions.");
       return;
@@ -71,7 +71,7 @@ function Hero() {
 
   return (
     <div className="hero-main">
-      {/* Hero top */}
+      
       <div className="hero-content">
         <div>
           <p className="hero-title">
@@ -90,7 +90,7 @@ function Hero() {
         <img src={Doctor} alt="Doctor" className="doctor-img" />
       </div>
 
-      {/* Search card */}
+    
       <div className="search-card">
         <form
           className="search-top-row"
@@ -99,7 +99,7 @@ function Hero() {
             handleSearch();
           }}
         >
-          {/* STATE DROPDOWN (id="state") */}
+       
           <div className="input-container" id="state">
             <span className="input-icon">📍</span>
             <input
@@ -141,7 +141,7 @@ function Hero() {
             )}
           </div>
 
-          {/* CITY DROPDOWN (id="city") */}
+          
           <div className="input-container" id="city">
             <span className="input-icon">🏙️</span>
             <input
@@ -179,7 +179,7 @@ function Hero() {
             )}
           </div>
 
-          {/* SEARCH button with id="searchBtn" */}
+        
           <button
             className="search-btn"
             type="submit"
@@ -200,7 +200,7 @@ function Hero() {
         </div>
       </div>
 
-      {/* the rest of your hero: offers, specialists, blogs – keep as in your CSS */}
+     
       <div className="offers-section">
         <div className="offer-images">
           {visibleImages.map((img, i) => (

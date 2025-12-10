@@ -1,11 +1,11 @@
 import React from "react";
+import hsptlmini from "./assests/hsptlmini.png";
 
 export default function MyBookings() {
   const bookings = JSON.parse(localStorage.getItem("bookings")) || [];
 
   return (
     <div className="my-bookings-page">
-     
       <h1>My Bookings</h1>
 
       {bookings.length === 0 ? (
@@ -15,13 +15,14 @@ export default function MyBookings() {
           <div key={index} className="myb-card">
             <div className="myb-left">
               <div className="myb-icon-wrapper">
-                <img src={item.img} alt="hospital" className="myb-icon-img" />
+                <img src={hsptlmini} alt="hospital" className="myb-icon-img" />
               </div>
 
               <div>
-               
-                <h3 className="myb-title">{item.name}</h3>
-                <p className="myb-grey">{item.address}</p>
+                <h3 className="myb-title">{item.hospital}</h3>
+                <p className="myb-grey">
+                  {item.address}, {item.city}, {item.state}
+                </p>
               </div>
             </div>
 

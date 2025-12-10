@@ -13,7 +13,13 @@ function Navbar() {
 
       <nav className="navbar">
         <div className="nav-left">
-          <img src={navimg} alt="Medify Logo" className="nav-logo" />
+          <img
+            src={navimg}
+            alt="Medify Logo"
+            className="nav-logo"
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/")}
+          />
         </div>
 
         <div className="nav-left nav-menu">
@@ -24,8 +30,10 @@ function Navbar() {
           <a href="#">Software for Provider</a>
           <a href="#">Facilities</a>
 
-          
-          <button className="booking-btn" onClick={() => navigate("/my-bookings")}>
+          <button
+            className="booking-btn"
+            onClick={() => navigate("/my-bookings")}
+          >
             My Bookings
           </button>
         </div>

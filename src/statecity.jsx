@@ -14,7 +14,8 @@ export default function StateCityProvider({ children }) {
         setStates(res.data);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error("Error fetching states:", err);
         setStates([]);
         setLoading(false);
       });

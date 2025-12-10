@@ -14,7 +14,7 @@ export default function Hsptl() {
 
   const [centers, setCenters] = useState([]);
   const [expandedCenter, setExpandedCenter] = useState(null);
-  const [activeDayIndex] = useState(0); // only Today is used for tests
+  const [activeDayIndex] = useState(0);
 
   useEffect(() => {
     if (!state || !city) {
@@ -22,8 +22,7 @@ export default function Hsptl() {
       return;
     }
 
-    // MUST match Cypress intercept:
-    // /data?state=Alabama&city=DOTHAN
+    // API call matches the Cypress intercept logic
     axios
       .get(
         `https://meddata-backend.onrender.com/data?state=${state}&city=${city}`
@@ -32,7 +31,7 @@ export default function Hsptl() {
       .catch(() => setCenters([]));
   }, [state, city]);
 
-  // Build day slots (Today, Tomorrow, etc.)
+  // Generate 7 days for slots
   const dayTabs = Array.from({ length: 7 }).map((_, index) => {
     const d = new Date();
     d.setDate(d.getDate() + index);
@@ -63,9 +62,10 @@ export default function Hsptl() {
       city: center.City,
       state: center.State,
       date: currentDay.date,
-      time,
+      time: time,
     };
 
+    // Store in localStorage with key 'bookings'
     const existing = JSON.parse(localStorage.getItem("bookings")) || [];
     localStorage.setItem("bookings", JSON.stringify([...existing, booking]));
 
@@ -82,12 +82,11 @@ export default function Hsptl() {
 
   return (
     <div style={{ margin: "40px" }}>
-      {/* Search Result Heading – must match Cypress text */}
+      {/* 1. H1 for Search Result Count */}
       <h1>
         {centers.length} medical centers available in {city.toLowerCase()}
       </h1>
 
-      {/* Verified row */}
       <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
         <img src={tick} alt="tick" />
         <p>
@@ -95,7 +94,6 @@ export default function Hsptl() {
         </p>
       </div>
 
-      {/* Hospital cards */}
       {centers.map((center, index) => (
         <div key={index} className="card">
           <div className="card-header">
@@ -103,8 +101,8 @@ export default function Hsptl() {
               <div className="hsptl-wrapper">
                 <img src={hsptlmini} className="hsptl-img" alt="hospital" />
               </div>
-
               <div>
+                {/* 2. H3 for Hospital Name */}
                 <h3 className="card-title">{center["Hospital Name"]}</h3>
                 <p className="grey-text">
                   {center.City}, {center.State}
@@ -112,18 +110,19 @@ export default function Hsptl() {
               </div>
             </div>
 
+            {/* 3. Button with exact text "Book FREE Center Visit" */}
             <button
               className="book-btn"
-              // Cypress expects clicking this to OPEN slot section
               onClick={() => setExpandedCenter(index)}
             >
               Book FREE Center Visit
             </button>
           </div>
 
-          {/* Slot section (visible after clicking button) */}
+          {/* Slot Section */}
           {expandedCenter === index && (
             <div className="slot-container">
+              {/* 4. Paragraph tags for Time of Day labels */}
               <p className="slot-label">Today</p>
 
               <div className="slot-group">

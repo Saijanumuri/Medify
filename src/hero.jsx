@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { StateCityContext } from "./statecity";
 import { useNavigate } from "react-router-dom";
 
+// Asset imports
 import Doctor from "./assests/doctors.png";
 import DoctorCard from "./assests/card_service.png";
 import Labs from "./assests/labs.png";
@@ -37,6 +38,7 @@ function Hero() {
   const [startIndex, setStartIndex] = useState(0);
   const visibleImages = images.slice(startIndex, startIndex + 3);
 
+  // Helper to handle mixed API responses (strings vs objects)
   const getCityName = (c) => c.city || c.name || c;
 
   // Fetch cities whenever state changes
@@ -46,7 +48,10 @@ function Hero() {
     fetch(`https://meddata-backend.onrender.com/cities/${selectedState}`)
       .then((res) => res.json())
       .then((data) => setCities(data))
-      .catch(() => setCities([]));
+      .catch((err) => {
+        console.error("Error fetching cities", err);
+        setCities([]);
+      });
   }, [selectedState]);
 
   const handleSearch = () => {
@@ -54,8 +59,7 @@ function Hero() {
       alert("Please select both State and City.");
       return;
     }
-
-    // Cypress intercept expects this exact query format
+    // Navigate with query params for Hsptl.js to read
     navigate(`/hospitals?state=${selectedState}&city=${selectedCity}`);
   };
 
@@ -69,14 +73,11 @@ function Hero() {
             <span className="medical-text">Medical</span>{" "}
             <span className="center-text">Centers</span>
           </p>
-
           <p className="hero-sub">
             Connect instantly with a specialist 24x7 or video visit a doctor.
           </p>
-
           <button className="find-btn">Find Doctors</button>
         </div>
-
         <img src={Doctor} alt="Doctor" className="doctor-img" />
       </div>
 
@@ -89,12 +90,11 @@ function Hero() {
             handleSearch();
           }}
         >
-          {/* STATE DROPDOWN */}
+          {/* STATE DROPDOWN - ID="state" required by Cypress */}
           <div className="input-container" id="state">
             <p className="dropdown-label">
               {selectedState || "Select State"}
             </p>
-
             <ul className="suggestion-list">
               {states.map((st, index) => (
                 <li
@@ -102,7 +102,7 @@ function Hero() {
                   className="suggestion-item"
                   onClick={() => {
                     setSelectedState(st);
-                    setSelectedCity("");
+                    setSelectedCity(""); // Reset city when state changes
                     setCities([]);
                   }}
                 >
@@ -112,30 +112,27 @@ function Hero() {
             </ul>
           </div>
 
-          {/* CITY DROPDOWN */}
+          {/* CITY DROPDOWN - ID="city" required by Cypress */}
           <div className="input-container" id="city">
             <p className="dropdown-label">
               {selectedCity || "Select City"}
             </p>
-
             {selectedState && (
               <ul className="suggestion-list">
-                {cities
-                  .map(getCityName)
-                  .map((city, index) => (
-                    <li
-                      key={index}
-                      className="suggestion-item"
-                      onClick={() => setSelectedCity(city)}
-                    >
-                      {city}
-                    </li>
-                  ))}
+                {cities.map(getCityName).map((city, index) => (
+                  <li
+                    key={index}
+                    className="suggestion-item"
+                    onClick={() => setSelectedCity(city)}
+                  >
+                    {city}
+                  </li>
+                ))}
               </ul>
             )}
           </div>
 
-          {/* SEARCH BUTTON */}
+          {/* SEARCH BUTTON - ID="searchBtn" required by Cypress */}
           <button
             className="search-btn"
             type="submit"
@@ -146,7 +143,6 @@ function Hero() {
         </form>
 
         <p className="looking-text">You may be looking for</p>
-
         <div className="categories">
           {[DoctorCard, Labs, HsptlIcon, MedStore, amb].map((img, i) => (
             <div key={i} className="category-card">
@@ -163,7 +159,6 @@ function Hero() {
             <img key={i} src={img} className="offer-img" alt="offer" />
           ))}
         </div>
-
         <div className="dots">
           {Array.from({ length: 3 }).map((_, i) => (
             <span

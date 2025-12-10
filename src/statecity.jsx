@@ -8,17 +8,18 @@ export default function StateCityProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios
-      .get("https://meddata-backend.onrender.com/states")
-      .then((res) => {
-        setStates(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching states:", err);
+    const fetchStates = async () => {
+      try {
+        const response = await axios.get("https://meddata-backend.onrender.com/states");
+        setStates(response.data);
+      } catch (error) {
+        console.error("Failed to fetch states:", error);
         setStates([]);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+    fetchStates();
   }, []);
 
   return (

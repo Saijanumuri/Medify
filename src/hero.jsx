@@ -101,76 +101,44 @@ function Hero() {
         >
 
           <div className="input-container" id="state">
-            <span className="input-icon">📍</span>
+            <p className="dropdown-label">
+              {selectedState || "Select State"}
+            </p>
 
-            <input
-              type="text"
-              className="search-input"
-              placeholder="State"
-              value={stateInput}
-              onChange={(e) => {
-                setStateInput(e.target.value);
-                setSelectedState("");
-                setCityInput("");
-                setSelectedCity("");
-                setCities([]);
-              }}
-            />
-
-            {stateInput && !loading && (
-              <ul className="suggestion-list">
-                {states
-                  .filter((st) =>
-                    st.toLowerCase().includes(stateInput.toLowerCase())
-                  )
-                  .map((st, index) => (
-                    <li
-                      key={index}
-                      className="suggestion-item"
-                      onClick={() => {
-                        setSelectedState(st);
-                        setStateInput(st);
-                      }}
-                    >
-                      {st}
-                    </li>
-                  ))}
-              </ul>
-            )}
+            <ul className="suggestion-list">
+              {states.map((st, index) => (
+                <li
+                  key={index}
+                  className="suggestion-item"
+                  onClick={() => {
+                    setSelectedState(st);
+                    setSelectedCity("");
+                    setCities([]);
+                  }}
+                >
+                  {st}
+                </li>
+              ))}
+            </ul>
           </div>
 
 
 
+
           <div className="input-container" id="city">
-            <span className="input-icon">🏙️</span>
+            <p className="dropdown-label">
+              {selectedCity || "Select City"}
+            </p>
 
-            <input
-              type="text"
-              className="search-input"
-              placeholder={!selectedState ? "Select State First" : "City"}
-              value={cityInput}
-              disabled={!selectedState}
-              onChange={(e) => {
-                setCityInput(e.target.value);
-                setSelectedCity("");
-              }}
-            />
-
-            {selectedState && cities.length > 0 && (
+            {selectedState && (
               <ul className="suggestion-list">
                 {cities
                   .map((c) => c.city || c.name || c)
-                  .filter((c) =>
-                    c.toLowerCase().includes(cityInput.toLowerCase())
-                  )
                   .map((city, index) => (
                     <li
                       key={index}
                       className="suggestion-item"
-                      onClick={() => {
-                        setSelectedCity(city);
-                        setCityInput(city);
-                      }}
+                      onClick={() => setSelectedCity(city)}
                     >
                       {city}
                     </li>
@@ -178,6 +146,7 @@ function Hero() {
               </ul>
             )}
           </div>
+
 
 
 
